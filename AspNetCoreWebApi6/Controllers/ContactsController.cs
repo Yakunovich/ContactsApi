@@ -105,7 +105,7 @@ namespace ContactsApi.Controllers
             return NoContent();
         }
 
-        private bool ContactExists(long id)
+        private bool ContactExists(int id)
         {
             return (_dbContext.Contacts?.Any(e => e.Id == id)).GetValueOrDefault();
         }

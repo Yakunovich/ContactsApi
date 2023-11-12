@@ -26,7 +26,7 @@
         <div class="modal-content">
           <div class="contact-form">
             <span class="close">&times;</span>
-            <form >
+            <form id = "editContactForm">
               <h2>Edit contact</h2>
               <div>
                 <input type="text" id="edit-name" placeholder="Name">
@@ -58,24 +58,6 @@
       </div>
     </div>
     </div>
-    
-
     <script src="js/site.js" asp-append-version="true"></script>
-    <script type="text/javascript">
-      getContacts();
-      let addContactBtn = document.querySelector('.addContactButton');
-      addContactBtn.onclick = function () {
-          let modal = addContactBtn.getAttribute("data-modal");
-          document.getElementById(modal).style.display = "block";
-        };
-      let closeBtns = [...document.querySelectorAll(".close")];
-      closeBtns.forEach(function (btn) {
-        btn.onclick = function () {
-          let modal = btn.closest(".modal");
-          modal.style.display = "none";
-        };
-      });
-
-    </script>
   </body>
 </html>
