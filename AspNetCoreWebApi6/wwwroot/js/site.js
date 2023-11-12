@@ -1,10 +1,18 @@
 const uri = 'api/Contacts';
 let contacts = [];
 
+const addContactForm = document.getElementById('addContactForm');
+addContactForm.addEventListener('submit', async (event) => {
+  let modal = addContactForm.closest(".modal");
+  modal.style.display = 'none';
+  event.preventDefault();
+  addContact();
+});
+
 function getContacts() {
   fetch(uri)
     .then(response => response.json())
-    .then(data => _displayItems(data))
+    .then(data => displayContacts(data))
     .catch(error => console.error('Unable to get contacts.', error));
 }
 
@@ -31,13 +39,13 @@ function addContact() {
   })
     .then(response => response.json())
     .then(() => {
-      getItems();
+      getContacts();
       addNameTextbox.value = '';
       addBirthDateTextbox.value = '';
       addJobTitleTextbox.value = '';
       addMobilePhoneTextbox.value = '';
     })
-    .catch(error => console.error('Unable to add item.', error));
+    .catch(error => console.error('Unable to add contact.', error));
 }
 
 function deleteItem(id) {
@@ -45,7 +53,7 @@ function deleteItem(id) {
     method: 'DELETE'
   })
   .then(() => getContacts())
-  .catch(error => console.error('Unable to delete item.', error));
+  .catch(error => console.error('Unable to delete contact.', error));
 }
 
 function displayEditForm(id) {
@@ -85,7 +93,17 @@ function closeInput() {
   document.getElementById('editForm').style.display = 'none';
 }
 
-function _displayItems(data) {
+function showEditModal(id) {
+  const contact = contacts.find(c => c.id === id);
+
+  document.getElementById('edit-name').value = contact.name;
+  document.getElementById('edit-mobilephone').value = contact.mobilePhone;
+  document.getElementById('edit-jobtitle').value = contact.jobTitle;
+  document.getElementById('edit-birthdate').value = new Date(contact.birthDate).toLocaleDateString();
+  document.getElementById('editContactModal').style.display = "block";
+}
+
+function displayContacts(data) {
   const tBody = document.getElementById('contacts');
   tBody.innerHTML = '';
   const button = document.createElement('button');
@@ -94,7 +112,8 @@ function _displayItems(data) {
     let editButton = button.cloneNode(false);
     editButton.innerText = 'Edit';
     editButton.className = "edit-btn"
-    editButton.setAttribute('onclick', `displayEditForm(${item.id})`);
+    editButton.setAttribute('data-modal','edit');
+    editButton.setAttribute('onclick',`showEditModal(${item.id})`);
 
     let deleteButton = button.cloneNode(false);
     deleteButton.innerText = 'Delete';

@@ -1,50 +1,81 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Contacts</title>
     <link rel="stylesheet" href="css/site.css" />
-</head>
-<body>
+  </head>
+  <body>
     <div id="container">
-    <!-- <h1>Contacts</h1>
-    <h3>Add</h3>
-    <form action="javascript:void(0);" method="POST" onsubmit="addContact()">
-        <input type="text" id="add-name" placeholder="Name">
-        <input type="text" id="add-mobilephone" placeholder="Mobile phone">
-        <input type="text" id="add-jobtitle" placeholder="Job title">
-        <input type="text" id="add-birthdate" placeholder="Birth date">
-        <input type="submit" value="Add">
-    </form>
-
-    <div id="editForm">
-        <h3>Edit</h3>
-        <form action="javascript:void(0);" onsubmit="updateItem()">
-            <input type="hidden" id="edit-id">
-            <input type="checkbox" id="edit-isComplete">
-            <input type="text" id="edit-name">
-            <input type="submit" value="Save">
-            <a onclick="closeInput()" aria-label="Close">&#10006;</a>
-        </form>
-    </div>
-
-    <p id="counter"></p> -->
-
-    <table>
+      <table>
         <tr>
-            <th>Name</th>
-            <th>Mobile phone</th>
-            <th>Job Title</th>
-            <th>Birth date</th>
-            <th>Actions</th>
+          <th>Name</th>
+          <th>Mobile phone</th>
+          <th>Job Title</th>
+          <th>Birth date</th>
+          <th>Actions</th>
         </tr>
         <tbody id="contacts"></tbody>
-    </table>
+      </table>
+      <p>
+        <button class="addContactButton" data-modal="addContactModal">
+          Add Contact
+        </button>
+    </p>
+      <div id="editContactModal" class="modal">
+        <div class="modal-content">
+          <div class="contact-form">
+            <span class="close">&times;</span>
+            <form >
+              <h2>Edit contact</h2>
+              <div>
+                <input type="text" id="edit-name" placeholder="Name">
+                <input type="text" id="edit-mobilephone" placeholder="Mobile phone">
+                <input type="text" id="edit-jobtitle" placeholder="Job title">
+                <input type="text" id="edit-birthdate" placeholder="Birth date">
+              </div>
+              <button type="submit" href="/">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div id="addContactModal" class="modal">
+        <div class="modal-content">
+          <div class="contact-form">
+            <span class="close">&times;</span>
+            <form id = "addContactForm">
+              <h2>Add contact</h2>
+              <div>
+                <input type="text" id="add-name" placeholder="Name">
+                <input type="text" id="add-mobilephone" placeholder="Mobile phone">
+                <input type="text" id="add-jobtitle" placeholder="Job title">
+                <input type="text" id="add-birthdate" placeholder="Birth date">
+              </div>
+              <button type="submit" href="/">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
+    </div>
+    
 
     <script src="js/site.js" asp-append-version="true"></script>
     <script type="text/javascript">
-        getContacts();
+      getContacts();
+      let addContactBtn = document.querySelector('.addContactButton');
+      addContactBtn.onclick = function () {
+          let modal = addContactBtn.getAttribute("data-modal");
+          document.getElementById(modal).style.display = "block";
+        };
+      let closeBtns = [...document.querySelectorAll(".close")];
+      closeBtns.forEach(function (btn) {
+        btn.onclick = function () {
+          let modal = btn.closest(".modal");
+          modal.style.display = "none";
+        };
+      });
+
     </script>
-</body>
+  </body>
 </html>
