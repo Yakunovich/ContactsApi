@@ -29,11 +29,11 @@
             <form id="editContactForm">
               <h2>Edit contact</h2>
               <div>
-                <input type="text" id="edit-name" placeholder="Name" />
+                <input type="text"  id="edit-name" placeholder="Name" />
                 <input
                   type="text"
                   id="edit-mobilephone"
-                  placeholder="Mobile phone"
+                  placeholder="(xx) xxx-xxxx"
                 />
                 <input type="text" id="edit-jobtitle" placeholder="Job title" />
                 <input
@@ -43,7 +43,8 @@
                   placeholder="Birth date"
                 />
               </div>
-              <button type="submit" href="/">Submit</button>
+              <span id="editError"></span>
+              <button type="submit" class="submit" href="/">Submit</button>
             </form>
           </div>
         </div>
@@ -57,9 +58,9 @@
               <div>
                 <input type="text" id="add-name" placeholder="Name" required/>
                 <input
-                  type="number"
+                  type="text"
                   id="add-mobilephone"
-                  placeholder="Mobile phone"
+                  placeholder="(xx) xxx-xxxx"
                   required
                 />
                 <input type="text" id="add-jobtitle" placeholder="Job title" required/>
@@ -71,7 +72,8 @@
                   required
                 />
               </div>
-              <button type="submit" href="/">Submit</button>
+              <span id="addError"></span>
+              <button type="submit" class="submit" href="/">Submit</button>
             </form>
           </div>
         </div>
