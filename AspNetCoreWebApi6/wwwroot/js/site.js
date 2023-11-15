@@ -1,7 +1,7 @@
 const uri = "api/Contacts";
 let contacts = [];
 
-//Validation
+//#region Validating
 
 function validateAddForm() {
   let validationResult = true;
@@ -38,6 +38,8 @@ function validateAddForm() {
   return validationResult;
 }
 
+
+
 function validateEditForm() {
   let validationResult = true;
 
@@ -71,8 +73,9 @@ function validateEditForm() {
   }
   return validationResult;
 }
+//#endregion
 
-//Modals
+//#region Modals
 
 const addContactForm = document.getElementById("addContactForm");
 addContactForm.addEventListener("submit", async (event) => {
@@ -96,8 +99,9 @@ editContactForm.addEventListener("submit", async (event) => {
   let contactId = modal.getAttribute("key");
   updateContact(contactId);
 });
+//#endregion
 
-//Api methods
+//#region Api methods
 
 function getContacts() {
   fetch(uri)
@@ -168,9 +172,9 @@ function updateContact(id) {
 
   return false;
 }
+//#endregion
 
-//Data presentation
-
+//#region Data presentation
 function displayEditModal(id) {
   const contact = contacts.find((c) => c.id === id);
 
@@ -231,12 +235,6 @@ function displayContacts(data) {
     input.setAttribute("max", new Date().toISOString().split("T")[0]);
   });
 
-  const addContactButton = document.querySelector(".addContactButton");
-  addContactButton.onclick = function () {
-    let modal = addContactButton.getAttribute("data-modal");
-    document.getElementById(modal).style.display = "block";
-  };
-
   const closeButtons = [...document.querySelectorAll(".close")];
   closeButtons.forEach(function (button) {
     button.onclick = function () {
@@ -248,16 +246,16 @@ function displayContacts(data) {
   contacts = data;
 }
 
-const birthDateInputs = document.querySelectorAll(".birthDateInput");
-birthDateInputs.forEach((input) => {
-  input.setAttribute("max", new Date().toISOString().split("T")[0]);
-});
-
 const addContactButton = document.querySelector(".addContactButton");
 addContactButton.onclick = function () {
   let modal = addContactButton.getAttribute("data-modal");
   document.getElementById(modal).style.display = "block";
 };
+
+const birthDateInputs = document.querySelectorAll(".birthDateInput");
+birthDateInputs.forEach((input) => {
+  input.setAttribute("max", new Date().toISOString().split("T")[0]);
+});
 
 const closeButtons = [...document.querySelectorAll(".close")];
 closeButtons.forEach(function (button) {
@@ -266,5 +264,7 @@ closeButtons.forEach(function (button) {
     modal.style.display = "none";
   };
 });
+
+//#endregion
 
 getContacts();
