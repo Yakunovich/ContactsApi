@@ -1,8 +1,8 @@
 const uri = "api/Contacts";
 let contacts = [];
 
-//Validation
-
+//#region Validating
+/** Валидация формы добавления */
 function validateAddForm() {
   let validationResult = true;
 
@@ -38,6 +38,7 @@ function validateAddForm() {
   return validationResult;
 }
 
+/** Валидация формы редактирования контакта */
 function validateEditForm() {
   let validationResult = true;
 
@@ -71,9 +72,10 @@ function validateEditForm() {
   }
   return validationResult;
 }
+//#endregion
 
-//Modals
-
+//#region Modals
+/**Сокрытие форм фосле отправки*/
 const addContactForm = document.getElementById("addContactForm");
 addContactForm.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -96,8 +98,13 @@ editContactForm.addEventListener("submit", async (event) => {
   let contactId = modal.getAttribute("key");
   updateContact(contactId);
 });
+//#endregion
 
-//Api methods
+//#region Api methods
+
+/**
+ * Функции для обращения к API сервера
+ */
 
 function getContacts() {
   fetch(uri)
@@ -168,9 +175,13 @@ function updateContact(id) {
 
   return false;
 }
+//#endregion
 
-//Data presentation
-
+//#region Data presentation
+/**
+ * Отображение модального окна для редактирования контакта
+ * @param {number} id -   Идентификатор контакта
+ */
 function displayEditModal(id) {
   const contact = contacts.find((c) => c.id === id);
 
@@ -187,7 +198,10 @@ function displayEditModal(id) {
   editModal.style.display = "block";
   editModal.setAttribute("key", contact.id);
 }
-
+/**
+ * Вывод таблицы контактов
+ * @param {Array} data -  Массив контактов
+ */
 function displayContacts(data) {
   const tBody = document.getElementById("contacts");
   tBody.innerHTML = "";
@@ -231,13 +245,7 @@ function displayContacts(data) {
     input.setAttribute("max", new Date().toISOString().split("T")[0]);
   });
 
-  const addContactButton = document.querySelector(".addContactButton");
-  addContactButton.onclick = function () {
-    let modal = addContactButton.getAttribute("data-modal");
-    document.getElementById(modal).style.display = "block";
-  };
-
-  const closeButtons = [...document.querySelectorAll(".close")];
+  const closeButtons = document.querySelectorAll(".close");
   closeButtons.forEach(function (button) {
     button.onclick = function () {
       let modal = button.closest(".modal");
@@ -248,23 +256,21 @@ function displayContacts(data) {
   contacts = data;
 }
 
-const birthDateInputs = document.querySelectorAll(".birthDateInput");
-birthDateInputs.forEach((input) => {
-  input.setAttribute("max", new Date().toISOString().split("T")[0]);
-});
-
+/** Отображение окна дбавления по нажатию кнопи */
 const addContactButton = document.querySelector(".addContactButton");
 addContactButton.onclick = function () {
   let modal = addContactButton.getAttribute("data-modal");
   document.getElementById(modal).style.display = "block";
 };
 
-const closeButtons = [...document.querySelectorAll(".close")];
+/** Сокрытие модальных окон */
+const closeButtons = document.querySelectorAll(".close");
 closeButtons.forEach(function (button) {
   button.onclick = function () {
     let modal = button.closest(".modal");
     modal.style.display = "none";
   };
 });
+//#endregion
 
 getContacts();
