@@ -1,11 +1,38 @@
 const uri = "api/Contacts";
 let contacts = [];
 
-const addContactButton = document.querySelector('.addContactButton');
+function validatePhoneNumber(input_str) {
+  var re = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+
+  return re.test(input_str);
+}
+
+function validateForm() {
+  phoneNumber = document.getElementById("edit-mobilephone").value;
+  name = document.getElementById("edit-name").value;
+
+  var regex = /^\(?([0-9]{2})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+  if (regex.test(phoneNumber) === false) {
+    alert(
+      "Enter phone number in the following format: (XX) XXX-XXXX or XX-XXX-XXXX"
+    );
+  }
+  if (name == null || name == "") {
+    alert("Name can't be blank");
+    return false;
+  }
+}
+
+const birthDateInputs = document.querySelectorAll(".birthDateInput");
+birthDateInputs.forEach((input) => {
+  input.setAttribute("max", new Date().toISOString().split("T")[0]);
+});
+
+const addContactButton = document.querySelector(".addContactButton");
 addContactButton.onclick = function () {
-    let modal = addContactButton.getAttribute("data-modal");
-    document.getElementById(modal).style.display = "block";
-  };
+  let modal = addContactButton.getAttribute("data-modal");
+  document.getElementById(modal).style.display = "block";
+};
 
 const closeButtons = [...document.querySelectorAll(".close")];
 closeButtons.forEach(function (button) {
@@ -27,12 +54,13 @@ addContactForm.addEventListener("submit", async (event) => {
 
 const editContactForm = document.getElementById("editContactForm");
 editContactForm.addEventListener("submit", async (event) => {
+  //validateForm();
   let modal = editContactForm.closest(".modal");
   modal.style.display = "none";
 
   event.preventDefault();
 
-  let contactId = modal.getAttribute("key")
+  let contactId = modal.getAttribute("key");
   updateContact(contactId);
 });
 
@@ -83,7 +111,6 @@ function deleteItem(id) {
     .catch((error) => console.error("Unable to delete contact.", error));
 }
 
-
 function updateContact(id) {
   const contact = {
     id: id,
@@ -113,13 +140,13 @@ function displayEditModal(id) {
   document.getElementById("edit-name").value = contact.name;
   document.getElementById("edit-mobilephone").value = contact.mobilePhone;
   document.getElementById("edit-jobtitle").value = contact.jobTitle;
-  document.getElementById("edit-birthdate").value = new Date(
-    contact.birthDate
-  ).toLocaleDateString();
+  document.getElementById("edit-birthdate").value = new Date(contact.birthDate)
+    .toISOString()
+    .substring(0, 10);
 
   let editModal = document.getElementById("editContactModal");
 
-  editModal.style.display = "block";  
+  editModal.style.display = "block";
   editModal.setAttribute("key", contact.id);
 }
 
@@ -153,7 +180,7 @@ function displayContacts(data) {
     td3.appendChild(document.createTextNode(item.jobTitle));
 
     let td4 = tr.insertCell(3);
-    let dayNode = new Date(item.birthDate).toLocaleDateString();
+    let dayNode = new Date(item.birthDate).toISOString().substring(0, 10);
     td4.appendChild(document.createTextNode(dayNode));
 
     let td5 = tr.insertCell(4);
@@ -164,4 +191,3 @@ function displayContacts(data) {
   contacts = data;
 }
 getContacts();
-

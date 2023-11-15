@@ -21,18 +21,27 @@
         <button class="addContactButton" data-modal="addContactModal">
           Add Contact
         </button>
-    </p>
+      </p>
       <div id="editContactModal" class="modal">
         <div class="modal-content">
           <div class="contact-form">
             <span class="close">&times;</span>
-            <form id = "editContactForm">
+            <form id="editContactForm">
               <h2>Edit contact</h2>
               <div>
-                <input type="text" id="edit-name" placeholder="Name">
-                <input type="text" id="edit-mobilephone" placeholder="Mobile phone">
-                <input type="text" id="edit-jobtitle" placeholder="Job title">
-                <input type="text" id="edit-birthdate" placeholder="Birth date">
+                <input type="text" id="edit-name" placeholder="Name" />
+                <input
+                  type="text"
+                  id="edit-mobilephone"
+                  placeholder="Mobile phone"
+                />
+                <input type="text" id="edit-jobtitle" placeholder="Job title" />
+                <input
+                  type="date"
+                  class="birthDateInput"
+                  id="edit-birthdate"
+                  placeholder="Birth date"
+                />
               </div>
               <button type="submit" href="/">Submit</button>
             </form>
@@ -43,20 +52,30 @@
         <div class="modal-content">
           <div class="contact-form">
             <span class="close">&times;</span>
-            <form id = "addContactForm">
+            <form id="addContactForm">
               <h2>Add contact</h2>
               <div>
-                <input type="text" id="add-name" placeholder="Name">
-                <input type="text" id="add-mobilephone" placeholder="Mobile phone">
-                <input type="text" id="add-jobtitle" placeholder="Job title">
-                <input type="text" id="add-birthdate" placeholder="Birth date">
+                <input type="text" id="add-name" placeholder="Name" required/>
+                <input
+                  type="number"
+                  id="add-mobilephone"
+                  placeholder="Mobile phone"
+                  required
+                />
+                <input type="text" id="add-jobtitle" placeholder="Job title" required/>
+                <input
+                  type="date"
+                  class="birthDateInput"
+                  id="add-birthdate"
+                  placeholder="Birth date"
+                  required
+                />
               </div>
               <button type="submit" href="/">Submit</button>
             </form>
           </div>
         </div>
       </div>
-    </div>
     </div>
     <script src="js/site.js" asp-append-version="true"></script>
   </body>
