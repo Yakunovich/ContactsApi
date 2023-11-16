@@ -103,7 +103,7 @@ editContactForm.addEventListener("submit", async (event) => {
 //#region Api methods
 
 /**
- * Функции для обращения к API сервера
+ * ������� ��� ��������� � API �������
  */
 
 function getContacts() {
@@ -199,8 +199,8 @@ function displayEditModal(id) {
   editModal.setAttribute("key", contact.id);
 }
 /**
- * Вывод таблицы контактов
- * @param {Array} data -  Массив контактов
+ * ����� ������� ���������
+ * @param {Array} data -  ������ ���������
  */
 function displayContacts(data) {
   const tBody = document.getElementById("contacts");
@@ -271,6 +271,8 @@ closeButtons.forEach(function (button) {
     modal.style.display = "none";
   };
 });
+//#endregion
+
 //#endregion
 
 getContacts();
